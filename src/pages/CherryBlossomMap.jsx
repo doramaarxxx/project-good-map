@@ -11,10 +11,7 @@ function CherryBlossomMap() {
   const [isMapReady, setIsMapReady] = useState(false)
 
   useEffect(() => {
-    getCherryBlossomSpots().then(data => {
-      console.log('Spots loaded:', data)
-      setSpots(data)
-    })
+    getCherryBlossomSpots().then(setSpots)
   }, [])
 
   useEffect(() => {
@@ -22,7 +19,6 @@ function CherryBlossomMap() {
 
     const initMap = () => {
       if (!window.kakao || !window.kakao.maps) {
-        console.log('Kakao Maps not loaded yet')
         setTimeout(initMap, 100)
         return
       }
@@ -30,7 +26,6 @@ function CherryBlossomMap() {
       const { kakao } = window
 
       kakao.maps.load(() => {
-        console.log('Kakao Maps initialized')
         const mapInstance = new kakao.maps.Map(mapRef.current, {
           center: new kakao.maps.LatLng(36.5, 127.5),
           level: 13
@@ -46,7 +41,6 @@ function CherryBlossomMap() {
   useEffect(() => {
     if (!map || !isMapReady || spots.length === 0 || !window.kakao) return
 
-    console.log('Adding markers:', spots.length)
     const { kakao } = window
 
     spots.forEach(spot => {
