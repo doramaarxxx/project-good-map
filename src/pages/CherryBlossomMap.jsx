@@ -57,6 +57,18 @@ function CherryBlossomMap() {
     })
   }, [map, isMapReady, spots])
 
+  const getNaverMapUrl = (spot) => {
+    return `https://map.naver.com/v5/search/${encodeURIComponent(spot.address || spot.name)}`
+  }
+
+  const getKakaoMapUrl = (spot) => {
+    return `https://map.kakao.com/link/map/${encodeURIComponent(spot.name)},${spot.latitude},${spot.longitude}`
+  }
+
+  const getGoogleMapUrl = (spot) => {
+    return `https://www.google.com/maps/search/?api=1&query=${spot.latitude},${spot.longitude}`
+  }
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -65,19 +77,63 @@ function CherryBlossomMap() {
         <span className={styles.count}>{spots.length}곳</span>
       </header>
 
-      <div ref={mapRef} className={styles.map} />
+      <div className={styles.content}>
+        <aside className={`${styles.sidebar} ${selectedSpot ? styles.sidebarOpen : ''}`}>
+          {selectedSpot ? (
+            <div className={styles.spotDetail}>
+              <button className={styles.closeBtn} onClick={() => setSelectedSpot(null)}>X</button>
 
-      {selectedSpot && (
-        <div className={styles.spotDetail}>
-          <button className={styles.closeBtn} onClick={() => setSelectedSpot(null)}>X</button>
-          <h2>{selectedSpot.name}</h2>
-          <p className={styles.address}>{selectedSpot.address}</p>
-          <p className={styles.region}>{selectedSpot.region} {selectedSpot.district}</p>
-          {selectedSpot.bloom_period && (
-            <p className={styles.bloom}>개화시기: {selectedSpot.bloom_period}</p>
+              <h2>{selectedSpot.name}</h2>
+
+              <div className={styles.section}>
+                <p className={styles.label}>주소</p>
+                <p className={styles.value}>{selectedSpot.address || '-'}</p>
+              </div>
+
+              <div className={styles.section}>
+                <p className={styles.label}>지역</p>
+                <p className={styles.value}>{selectedSpot.region} {selectedSpot.district}</p>
+              </div>
+
+              {selectedSpot.bloom_period && (
+                <div className={styles.section}>
+                  <p className={styles.label}>개화시기</p>
+                  <p className={styles.value}>{selectedSpot.bloom_period}</p>
+                </div>
+              )}
+
+              {selectedSpot.description && (
+                <div className={styles.section}>
+                  <p className={styles.label}>설명</p>
+                  <p className={styles.value}>{selectedSpot.description}</p>
+                </div>
+              )}
+
+              <div className={styles.links}>
+                <p className={styles.label}>지도에서 보기</p>
+                <div className={styles.linkButtons}>
+                  <a href={getNaverMapUrl(selectedSpot)} target="_blank" rel="noopener noreferrer" className={styles.linkBtn}>
+                    네이버지도
+                  </a>
+                  <a href={getKakaoMapUrl(selectedSpot)} target="_blank" rel="noopener noreferrer" className={styles.linkBtn}>
+                    카카오맵
+                  </a>
+                  <a href={getGoogleMapUrl(selectedSpot)} target="_blank" rel="noopener noreferrer" className={styles.linkBtn}>
+                    구글맵
+                  </a>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.placeholder}>
+              <p>지도에서 핀을 클릭하면</p>
+              <p>상세 정보가 표시됩니다</p>
+            </div>
           )}
-        </div>
-      )}
+        </aside>
+
+        <div ref={mapRef} className={styles.map} />
+      </div>
     </div>
   )
 }
