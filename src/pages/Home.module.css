@@ -1,0 +1,52 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 32px;
+  color: #000;
+}
+
+.mapList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mapItem {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.mapItem:hover {
+  background: #f5f5f5;
+}
+
+.mapItem.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.mapItem.disabled:hover {
+  background: #fff;
+}
+
+.mapInfo h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #000;
+}
+
+.mapInfo p {
+  font-size: 13px;
+  color: #666;
+}

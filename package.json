@@ -1,12 +1,21 @@
 {
   "name": "project-good-map",
   "version": "1.0.0",
+  "type": "module",
   "description": "한국 지도 프로젝트 - 벚꽃지도, 맛집지도",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "setup-db": "node scripts/setup-db.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
-    "dotenv": "^16.3.1"
+    "@vitejs/plugin-react": "^4.7.0",
+    "dotenv": "^16.3.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1",
+    "vite": "^6.4.1"
   }
 }

@@ -1,0 +1,101 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #fff;
+  border-bottom: 1px solid #000;
+}
+
+.backBtn {
+  font-size: 14px;
+  color: #000;
+  padding: 8px 16px;
+  border: 1px solid #000;
+}
+
+.backBtn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.header h1 {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+
+.count {
+  font-size: 13px;
+  color: #000;
+  border: 1px solid #000;
+  padding: 6px 12px;
+}
+
+.map {
+  flex: 1;
+  width: 100%;
+  min-height: 400px;
+}
+
+.spotDetail {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 24px;
+  border-top: 1px solid #000;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: 1px solid #000;
+  font-size: 14px;
+  color: #000;
+  cursor: pointer;
+  padding: 4px 10px;
+}
+
+.closeBtn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.spotDetail h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-right: 60px;
+  color: #000;
+}
+
+.address {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.region {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.bloom {
+  font-size: 13px;
+  color: #000;
+  border: 1px solid #000;
+  padding: 8px 12px;
+  display: inline-block;
+}
