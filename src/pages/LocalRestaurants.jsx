@@ -42,17 +42,30 @@ function LocalRestaurants() {
     if (!map || !isMapReady || spots.length === 0 || !window.kakao) return
 
     const { kakao } = window
+    const ps = new kakao.maps.services.Places()
 
     spots.forEach(spot => {
-      const marker = new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(spot.latitude, spot.longitude),
-        title: spot.name
-      })
+      const keyword = `${spot.district} ${spot.name}`
 
-      kakao.maps.event.addListener(marker, 'click', () => {
-        setSelectedSpot(spot)
-        map.panTo(new kakao.maps.LatLng(spot.latitude, spot.longitude))
+      ps.keywordSearch(keyword, (data, status) => {
+        let position
+
+        if (status === kakao.maps.services.Status.OK && data.length > 0) {
+          position = new kakao.maps.LatLng(data[0].y, data[0].x)
+        } else {
+          position = new kakao.maps.LatLng(spot.latitude, spot.longitude)
+        }
+
+        const marker = new kakao.maps.Marker({
+          map: map,
+          position: position,
+          title: spot.name
+        })
+
+        kakao.maps.event.addListener(marker, 'click', () => {
+          setSelectedSpot(spot)
+          map.panTo(position)
+        })
       })
     })
   }, [map, isMapReady, spots])
