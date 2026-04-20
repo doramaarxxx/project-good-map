@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { getLocalRestaurants } from '../services/supabase'
+import SEOUL_DISTRICT_BOUNDARIES from '../data/seoulDistricts'
 import styles from './LocalRestaurants.module.css'
 
 // 서울 구 목록
@@ -96,56 +97,90 @@ function LocalRestaurants() {
     initMap()
   }, [])
 
-  // 구 오버레이 표시
+  // 구 폴리곤 및 라벨 표시
   useEffect(() => {
     if (!map || !isMapReady || !window.kakao) return
 
     const { kakao } = window
 
     // 기존 오버레이 제거
-    districtOverlays.forEach(overlay => overlay.setMap(null))
+    districtOverlays.forEach(item => {
+      if (item.polygon) item.polygon.setMap(null)
+      if (item.label) item.label.setMap(null)
+    })
 
     const newOverlays = []
 
-    // 줌 레벨 8 이상이면 모든 구 표시, 아니면 선택된 구만 표시
-    const districtsToShow = zoomLevel >= 8 ? SEOUL_DISTRICTS : selectedRegions
+    // 줌 레벨 7 이상이면 모든 구 표시, 아니면 선택된 구만 표시
+    const districtsToShow = zoomLevel >= 7 ? SEOUL_DISTRICTS : selectedRegions
 
     districtsToShow.forEach(district => {
+      const boundaries = SEOUL_DISTRICT_BOUNDARIES[district]
       const center = DISTRICT_CENTERS[district]
-      if (!center) return
+      if (!boundaries || !center) return
 
-      const content = document.createElement('div')
-      content.className = styles.districtMarker
-      content.innerHTML = district
-      content.dataset.district = district
+      const isSelected = selectedRegions.includes(district)
 
-      if (selectedRegions.includes(district)) {
-        content.classList.add(styles.districtMarkerSelected)
-      }
+      // 폴리곤 경로 생성
+      const path = boundaries.map(coord => new kakao.maps.LatLng(coord[1], coord[0]))
 
-      content.addEventListener('mouseenter', () => {
+      // 폴리곤 생성
+      const polygon = new kakao.maps.Polygon({
+        map: map,
+        path: path,
+        strokeWeight: isSelected ? 3 : 2,
+        strokeColor: isSelected ? '#000000' : '#888888',
+        strokeOpacity: isSelected ? 1 : 0.6,
+        fillColor: isSelected ? '#000000' : '#cccccc',
+        fillOpacity: isSelected ? 0.25 : 0.1
+      })
+
+      // 호버 이벤트
+      kakao.maps.event.addListener(polygon, 'mouseover', () => {
         if (!selectedRegions.includes(district)) {
-          content.classList.add(styles.districtMarkerHover)
+          polygon.setOptions({
+            fillColor: '#000000',
+            fillOpacity: 0.2,
+            strokeColor: '#000000',
+            strokeWeight: 2
+          })
         }
       })
 
-      content.addEventListener('mouseleave', () => {
-        content.classList.remove(styles.districtMarkerHover)
+      kakao.maps.event.addListener(polygon, 'mouseout', () => {
+        if (!selectedRegions.includes(district)) {
+          polygon.setOptions({
+            fillColor: '#cccccc',
+            fillOpacity: 0.1,
+            strokeColor: '#888888',
+            strokeWeight: 2
+          })
+        }
       })
 
-      content.addEventListener('click', () => {
+      // 클릭 이벤트
+      kakao.maps.event.addListener(polygon, 'click', () => {
         toggleRegion(district)
       })
 
-      const overlay = new kakao.maps.CustomOverlay({
-        position: new kakao.maps.LatLng(center.lat, center.lng),
-        content: content,
-        yAnchor: 0.5,
-        xAnchor: 0.5
-      })
+      // 라벨 생성 (줌 레벨 7 이상일 때만)
+      let label = null
+      if (zoomLevel >= 7) {
+        const content = document.createElement('div')
+        content.className = `${styles.districtLabel} ${isSelected ? styles.districtLabelSelected : ''}`
+        content.innerHTML = district
+        content.addEventListener('click', () => toggleRegion(district))
 
-      overlay.setMap(map)
-      newOverlays.push(overlay)
+        label = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(center.lat, center.lng),
+          content: content,
+          yAnchor: 0.5,
+          xAnchor: 0.5
+        })
+        label.setMap(map)
+      }
+
+      newOverlays.push({ polygon, label })
     })
 
     setDistrictOverlays(newOverlays)

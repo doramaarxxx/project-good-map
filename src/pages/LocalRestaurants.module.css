@@ -273,27 +273,28 @@
   min-height: 400px;
 }
 
-/* 지도 위 구 이름 마커 */
-.districtMarker {
-  padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
+/* 지도 위 구 이름 라벨 */
+.districtLabel {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #888;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
   color: #333;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  pointer-events: auto;
 }
 
-.districtMarkerHover {
+.districtLabel:hover {
   background: #000;
   color: #fff;
   border-color: #000;
 }
 
-.districtMarkerSelected {
+.districtLabelSelected {
   background: #000;
   color: #fff;
   border-color: #000;
