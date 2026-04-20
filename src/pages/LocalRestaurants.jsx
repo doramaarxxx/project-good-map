@@ -96,7 +96,7 @@ function LocalRestaurants() {
     initMap()
   }, [])
 
-  // 구 오버레이 표시 (줌 레벨 8 이상일 때)
+  // 구 오버레이 표시
   useEffect(() => {
     if (!map || !isMapReady || !window.kakao) return
 
@@ -105,51 +105,50 @@ function LocalRestaurants() {
     // 기존 오버레이 제거
     districtOverlays.forEach(overlay => overlay.setMap(null))
 
-    if (zoomLevel >= 8) {
-      const newOverlays = []
+    const newOverlays = []
 
-      SEOUL_DISTRICTS.forEach(district => {
-        const center = DISTRICT_CENTERS[district]
-        if (!center) return
+    // 줌 레벨 8 이상이면 모든 구 표시, 아니면 선택된 구만 표시
+    const districtsToShow = zoomLevel >= 8 ? SEOUL_DISTRICTS : selectedRegions
 
-        const content = document.createElement('div')
-        content.className = styles.districtMarker
-        content.innerHTML = district
-        content.dataset.district = district
+    districtsToShow.forEach(district => {
+      const center = DISTRICT_CENTERS[district]
+      if (!center) return
 
-        if (selectedRegions.includes(district)) {
-          content.classList.add(styles.districtMarkerSelected)
+      const content = document.createElement('div')
+      content.className = styles.districtMarker
+      content.innerHTML = district
+      content.dataset.district = district
+
+      if (selectedRegions.includes(district)) {
+        content.classList.add(styles.districtMarkerSelected)
+      }
+
+      content.addEventListener('mouseenter', () => {
+        if (!selectedRegions.includes(district)) {
+          content.classList.add(styles.districtMarkerHover)
         }
-
-        content.addEventListener('mouseenter', () => {
-          if (!selectedRegions.includes(district)) {
-            content.classList.add(styles.districtMarkerHover)
-          }
-        })
-
-        content.addEventListener('mouseleave', () => {
-          content.classList.remove(styles.districtMarkerHover)
-        })
-
-        content.addEventListener('click', () => {
-          toggleRegion(district)
-        })
-
-        const overlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(center.lat, center.lng),
-          content: content,
-          yAnchor: 0.5,
-          xAnchor: 0.5
-        })
-
-        overlay.setMap(map)
-        newOverlays.push(overlay)
       })
 
-      setDistrictOverlays(newOverlays)
-    } else {
-      setDistrictOverlays([])
-    }
+      content.addEventListener('mouseleave', () => {
+        content.classList.remove(styles.districtMarkerHover)
+      })
+
+      content.addEventListener('click', () => {
+        toggleRegion(district)
+      })
+
+      const overlay = new kakao.maps.CustomOverlay({
+        position: new kakao.maps.LatLng(center.lat, center.lng),
+        content: content,
+        yAnchor: 0.5,
+        xAnchor: 0.5
+      })
+
+      overlay.setMap(map)
+      newOverlays.push(overlay)
+    })
+
+    setDistrictOverlays(newOverlays)
   }, [map, isMapReady, zoomLevel, selectedRegions])
 
   // 마커 표시

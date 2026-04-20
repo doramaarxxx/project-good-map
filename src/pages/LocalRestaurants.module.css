@@ -51,16 +51,16 @@
   min-width: 280px;
   background: #fff;
   border-right: 1px solid #000;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  z-index: 5;
+  z-index: 20;
 }
 
 .regionInfo {
   padding: 16px 20px;
   border-bottom: 1px solid #e0e0e0;
   position: relative;
+  flex-shrink: 0;
 }
 
 .regionLabel {
