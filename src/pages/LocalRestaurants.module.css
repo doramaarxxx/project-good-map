@@ -109,6 +109,28 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+.dropdownHeader {
+  padding: 10px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f8f8f8;
+  position: sticky;
+  top: 0;
+}
+
+.clearAllBtn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.clearAllBtn:hover {
+  color: #000;
+}
+
 .dropdownItem {
   display: flex;
   align-items: center;

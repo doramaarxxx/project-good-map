@@ -315,6 +315,14 @@ function LocalRestaurants() {
 
             {isDropdownOpen && (
               <div className={styles.dropdown}>
+                <div className={styles.dropdownHeader}>
+                  <button
+                    className={styles.clearAllBtn}
+                    onClick={() => setSelectedRegions(['성동구'])}
+                  >
+                    전체 해제
+                  </button>
+                </div>
                 {SEOUL_DISTRICTS.map(district => (
                   <label key={district} className={styles.dropdownItem}>
                     <input
