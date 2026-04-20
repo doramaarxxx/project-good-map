@@ -19,3 +19,18 @@ export async function getCherryBlossomSpots() {
 
   return data
 }
+
+export async function getLocalRestaurants() {
+  const { data, error } = await supabase
+    .from('local_restaurants')
+    .select('*')
+    .not('latitude', 'is', null)
+    .order('region')
+
+  if (error) {
+    console.error('Error fetching restaurants:', error)
+    return []
+  }
+
+  return data
+}

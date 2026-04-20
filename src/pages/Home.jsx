@@ -14,12 +14,12 @@ function Home() {
           </div>
         </Link>
 
-        <div className={`${styles.mapItem} ${styles.disabled}`}>
+        <Link to="/local-restaurants" className={styles.mapItem}>
           <div className={styles.mapInfo}>
-            <h2>맛집지도</h2>
-            <p>준비 중</p>
+            <h2>지역 맛집</h2>
+            <p>전국 맛집 모음</p>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   )

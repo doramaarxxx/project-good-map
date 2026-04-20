@@ -1,0 +1,169 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #fff;
+  border-bottom: 1px solid #000;
+}
+
+.backBtn {
+  font-size: 14px;
+  color: #000;
+  padding: 8px 16px;
+  border: 1px solid #000;
+}
+
+.backBtn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.header h1 {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+
+.count {
+  font-size: 13px;
+  color: #000;
+  border: 1px solid #000;
+  padding: 6px 12px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 320px;
+  min-width: 320px;
+  background: #fff;
+  border-right: 1px solid #000;
+  overflow-y: auto;
+}
+
+.map {
+  flex: 1;
+  min-height: 400px;
+}
+
+.placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.spotDetail {
+  padding: 24px;
+  position: relative;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: 1px solid #000;
+  font-size: 14px;
+  color: #000;
+  cursor: pointer;
+  padding: 4px 10px;
+}
+
+.closeBtn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.spotDetail h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding-right: 40px;
+  color: #000;
+  line-height: 1.4;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.value {
+  font-size: 14px;
+  color: #000;
+  line-height: 1.5;
+}
+
+.links {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.linkButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.linkBtn {
+  display: block;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #000;
+  border: 1px solid #000;
+  text-align: center;
+  text-decoration: none;
+}
+
+.linkBtn:hover {
+  background: #000;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column-reverse;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 100%;
+    max-height: 50vh;
+    border-right: none;
+    border-top: 1px solid #000;
+  }
+
+  .sidebarOpen {
+    display: block;
+  }
+
+  .map {
+    flex: 1;
+  }
+}
