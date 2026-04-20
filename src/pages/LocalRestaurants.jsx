@@ -57,16 +57,20 @@ function LocalRestaurants() {
     })
   }, [map, isMapReady, spots])
 
+  const getSearchKeyword = (spot) => {
+    return `${spot.district} ${spot.name}`
+  }
+
   const getNaverMapUrl = (spot) => {
-    return `https://map.naver.com/v5/search/${encodeURIComponent(spot.address || spot.name)}`
+    return `https://map.naver.com/v5/search/${encodeURIComponent(getSearchKeyword(spot))}`
   }
 
   const getKakaoMapUrl = (spot) => {
-    return `https://map.kakao.com/link/map/${encodeURIComponent(spot.name)},${spot.latitude},${spot.longitude}`
+    return `https://map.kakao.com/?q=${encodeURIComponent(getSearchKeyword(spot))}`
   }
 
   const getGoogleMapUrl = (spot) => {
-    return `https://www.google.com/maps/search/?api=1&query=${spot.latitude},${spot.longitude}`
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(getSearchKeyword(spot))}`
   }
 
   return (
