@@ -54,25 +54,83 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  z-index: 5;
 }
 
 .regionInfo {
   padding: 16px 20px;
   border-bottom: 1px solid #e0e0e0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  position: relative;
 }
 
 .regionLabel {
   font-size: 12px;
   color: #666;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.regionSelector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.regionSelector:hover {
+  background: #f8f8f8;
 }
 
 .regionName {
-  font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   color: #000;
+}
+
+.dropdownArrow {
+  font-size: 10px;
+  color: #666;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  right: 20px;
+  background: #fff;
+  border: 1px solid #000;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdownItem:hover {
+  background: #f8f8f8;
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
+}
+
+.dropdownItem input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
 
 .spotList {
@@ -215,6 +273,47 @@
   min-height: 400px;
 }
 
+/* 지도 위 구 이름 마커 */
+.districtMarker {
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.districtMarkerHover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.districtMarkerSelected {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* 줌 힌트 */
+.zoomHint {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 100;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .content {
     flex-direction: column-reverse;
@@ -240,5 +339,10 @@
 
   .map {
     flex: 1;
+  }
+
+  .dropdown {
+    left: 16px;
+    right: 16px;
   }
 }
