@@ -129,19 +129,19 @@ function LocalRestaurants() {
         map: map,
         path: path,
         strokeWeight: isSelected ? 3 : 2,
-        strokeColor: isSelected ? '#000000' : '#888888',
+        strokeColor: isSelected ? '#4A90D9' : '#888888',
         strokeOpacity: isSelected ? 1 : 0.6,
-        fillColor: isSelected ? '#000000' : '#cccccc',
-        fillOpacity: isSelected ? 0.25 : 0.1
+        fillColor: isSelected ? '#87CEEB' : '#cccccc',
+        fillOpacity: isSelected ? 0.4 : 0.1
       })
 
       // 호버 이벤트
       kakao.maps.event.addListener(polygon, 'mouseover', () => {
         if (!selectedRegions.includes(district)) {
           polygon.setOptions({
-            fillColor: '#000000',
-            fillOpacity: 0.2,
-            strokeColor: '#000000',
+            fillColor: '#87CEEB',
+            fillOpacity: 0.3,
+            strokeColor: '#4A90D9',
             strokeWeight: 2
           })
         }
