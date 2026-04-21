@@ -311,15 +311,15 @@
 }
 
 .districtLabel:hover {
-  background: #E91E63;
+  background: #555;
   color: #fff;
-  border-color: #E91E63;
+  border-color: #555;
 }
 
 .districtLabelSelected {
-  background: #E91E63;
+  background: #555;
   color: #fff;
-  border-color: #E91E63;
+  border-color: #555;
 }
 
 /* 줌 힌트 */

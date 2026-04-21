@@ -128,21 +128,21 @@ function LocalRestaurants() {
       const polygon = new kakao.maps.Polygon({
         map: map,
         path: path,
-        strokeWeight: isSelected ? 3 : 2,
-        strokeColor: isSelected ? '#E91E63' : '#888888',
-        strokeOpacity: isSelected ? 0.8 : 0.6,
-        fillColor: isSelected ? '#FFE4EC' : '#cccccc',
-        fillOpacity: isSelected ? 0.5 : 0.1
+        strokeWeight: isSelected ? 1.5 : 1,
+        strokeColor: isSelected ? '#666666' : '#999999',
+        strokeOpacity: isSelected ? 0.8 : 0.4,
+        fillColor: isSelected ? '#888888' : '#cccccc',
+        fillOpacity: isSelected ? 0.15 : 0.05
       })
 
       // 호버 이벤트
       kakao.maps.event.addListener(polygon, 'mouseover', () => {
         if (!selectedRegions.includes(district)) {
           polygon.setOptions({
-            fillColor: '#FFE4EC',
-            fillOpacity: 0.4,
-            strokeColor: '#E91E63',
-            strokeWeight: 2
+            fillColor: '#888888',
+            fillOpacity: 0.1,
+            strokeColor: '#666666',
+            strokeWeight: 1
           })
         }
       })
@@ -151,9 +151,9 @@ function LocalRestaurants() {
         if (!selectedRegions.includes(district)) {
           polygon.setOptions({
             fillColor: '#cccccc',
-            fillOpacity: 0.1,
-            strokeColor: '#888888',
-            strokeWeight: 2
+            fillOpacity: 0.05,
+            strokeColor: '#999999',
+            strokeWeight: 1
           })
         }
       })
