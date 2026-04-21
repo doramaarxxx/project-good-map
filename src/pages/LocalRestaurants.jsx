@@ -132,7 +132,7 @@ function LocalRestaurants() {
         strokeColor: isSelected ? '#666666' : '#999999',
         strokeOpacity: isSelected ? 0.8 : 0.4,
         fillColor: isSelected ? '#888888' : '#cccccc',
-        fillOpacity: isSelected ? 0.15 : 0.05
+        fillOpacity: isSelected ? 0.25 : 0.05
       })
 
       // 호버 이벤트
@@ -140,7 +140,7 @@ function LocalRestaurants() {
         if (!selectedRegions.includes(district)) {
           polygon.setOptions({
             fillColor: '#888888',
-            fillOpacity: 0.1,
+            fillOpacity: 0.15,
             strokeColor: '#666666',
             strokeWeight: 1
           })
